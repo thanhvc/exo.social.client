@@ -18,14 +18,15 @@
 package org.exoplatform.social.client.api.event;
 
 /**
- * 
+ * TODO java docs
+ *
  * @author thanh_vucong
  *
  */
 public interface LifecycleListener {
 
   /**
-   * Broadcast the event to the LifecycleListener.
+   * Broadcasts the event to the LifecycleListener.
    * @param event the event is broadcasted
    */
   public void broadcast(LifecycleEvent event);
