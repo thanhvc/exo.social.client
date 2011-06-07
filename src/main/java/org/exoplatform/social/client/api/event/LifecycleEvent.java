@@ -16,9 +16,74 @@
  */
 package org.exoplatform.social.client.api.event;
 
-/**
- * TODO java docs
- */
-public interface LifecycleEvent {
 
+/**
+ * General event for notifying listeners of significant changes on a component
+ * that implements the Lifecycle interface.
+ * 
+ * @author thanh_vucong
+ *
+ */
+public final class LifecycleEvent<M, S> extends Event {
+
+  /**
+   * The event type this instance represents.
+   */
+  private String type = null;
+  /**
+   * The event data associated with this event.
+   */
+  private S data = null;
+  /**
+   * The Lifecycle on which this event occurred.
+   */
+  private Lifecycle<M,S> source = null;
+  
+  /**
+   * Construct a new LifecycleEvent with the specified parameters.
+   * 
+   * @param source Component on which this event occurred
+   * @param type Event type (required)
+   */
+  public LifecycleEvent(Lifecycle<M,S> source, String type) {
+   this(source, type, null);
+  }
+  
+  /**
+   * Construct a new LifecycleEvent with the specified parameters.
+   * 
+   * @param source Component on which this event occurred
+   * @param type Event type (required)
+   * @param data Event data (if any)
+   */
+  public LifecycleEvent(Lifecycle<M,S> source, String type, S data) {
+    this.source = source;
+    this.type = type;
+    this.data = data;
+  }
+  
+  /**
+   * Return the event type of this event.
+   * @return
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * Return the event data of this event.
+   * @return
+   */
+  public S getData() {
+    return data;
+  }
+
+  /**
+   * Return the Lifecycle on which this event occurred.
+   * @return
+   */
+  public Lifecycle<M,S> getSource() {
+    return source;
+  }
+  
 }

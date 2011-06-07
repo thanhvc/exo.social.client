@@ -17,10 +17,15 @@
 package org.exoplatform.social.client.api.event;
 
 
+
 /**
- * TODO java docs
+ * Common interface for component life cycle methods.
+ * In order to provide a consistent to start and stop the component.
+ * 
+ * @author thanh_vucong
+ *
  */
-public interface Lifecycle {
+public interface Lifecycle<M, S> {
 
   /**
    * The LifecycleEvent type for the "component start" event.
@@ -37,25 +42,38 @@ public interface Lifecycle {
    */
   public static final String AFTER_START_EVENT = "after_start";
 
+  /**
+   * The LifecycleEvent type for the "component stop" event.
+   */
   public static final String STOP_EVENT = "stop";
 
+  /**
+   * The LifecycleEvent type for the "component before stop"
+   */
   public static final String BEFORE_STOP_EVENT = "before_stop";
+  /**
+   * The LifecycleEvent type for the "component after start"
+   */
   public static final String AFTER_STOP_EVENT = "after_stop";
 
-  public static final String DESTROY_EVENT = "destroy";
   /**
-   * Get the lifecycle listeners associated with this lifecycle. If this
-   * Lifecycle has no listeners registered, a zero-length array is returned.
+   * The LifecycleEvent type for the "component destroy"
    */
-  public LifecycleListener[] findLifecycleListeners();
-
-
+  public static final String DESTROY_EVENT = "destroy";
+ 
   /**
    * Remove a LifecycleEvent listener from this component.
    *
    * @param listener The listener to remove
    */
-  public void removeLifecycleListener(LifecycleListener listener);
+  public void removeLifecycleListener(LifecycleListener<M,S> listener);
+  
+  /**
+   * Add a LifecycleEvent listener to this component.
+   *
+   * @param listener The listener to add
+   */
+  public void addLifecycleListener(LifecycleListener<M,S> listener);
 
 
   /**

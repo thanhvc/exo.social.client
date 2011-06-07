@@ -21,17 +21,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.exoplatform.social.client.api.event.PropertyChangeListener;
 import org.exoplatform.social.client.api.model.Model;
+import org.exoplatform.social.client.core.util.PropertyChangeSupport;
 import org.json.simple.JSONObject;
 
 /**
- * ModelImplTest implements {@link Model}.
+ * ModelImpl implements {@link Model}.
  *
  * @author <a href="http://hoatle.net">hoatle (hoatlevan at gmail dot com)</a>
  * @since  May 20, 2011
  */
 public class ModelImpl extends JSONObject implements Model {
 
+  /**
+   * The property change event support for this model.
+   */
+  protected PropertyChangeSupport propertyChanges = new PropertyChangeSupport(this);
   /**
    * {@inheritDoc}
    */
@@ -133,5 +139,27 @@ public class ModelImpl extends JSONObject implements Model {
     listField.add(item);
     put(fieldName, listField);
   }
+  
+  /**
+   * Add a property change event listener to this model
+   * 
+   * @param listener The listener is added
+   */
+  public void addPropertyChangeListener(PropertyChangeListener listener) {
+    propertyChanges.addPropertyChangeListener(listener);
+  }
+  
+  /**
+   * Remove a property change event listener which was added to this model.
+   * @param listener The listener will be removed.
+   */
+  public void removePropertyChangeListener(PropertyChangeListener listener) {
+    propertyChanges.removeLifecycleListener(listener);
+  }
+
+  @Override
+  public PropertyChangeListener[] findPropertyChangeListeners() {
+    return propertyChanges.findPropertyChangeListeners();
+  } 
 
 }
