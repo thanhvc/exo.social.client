@@ -77,11 +77,18 @@ public final class PropertyChangeSupport {
    * occurred for this Container. The default implementation performs 
    * this notification synchronously using the calling thread.
    * 
-   * @param type Event type
-   * @param data Event data
+   * No event is fired if old and new are equal and non-null.
+   * 
+   * @param propertyName The PropertyName string
+   * @param oldValue oldValue object.
+   * @param newValue newValue object.
    */
-  public void propertyChange(String propertyName, Object oldObject, Object newObject) {
-    PropertyChangeEvent event = new PropertyChangeEvent(this.source, propertyName, oldObject, newObject);
+  public void propertyChange(String propertyName, Object oldValue, Object newValue) {
+    
+    if (oldValue != null && newValue != null && oldValue.equals(newValue)) {
+      return;
+    }
+    PropertyChangeEvent event = new PropertyChangeEvent(this.source, propertyName, oldValue, newValue);
     PropertyChangeListener interested[] = listeners;
     for (int i = 0; i < interested.length; i++) {
       interested[i].propertyChange(event);
