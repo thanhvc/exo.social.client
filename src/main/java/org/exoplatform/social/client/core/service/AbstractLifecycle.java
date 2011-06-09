@@ -105,7 +105,7 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
    * 
    * @param listener The listener is added
    */
-  public final void addLifecycleListener(LifecycleListener<M,S> listener) {
+  public void addLifecycleListener(LifecycleListener<M,S> listener) {
     lifecycle.addLifecycleListener(listener);
   }
   
@@ -115,6 +115,11 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
    */
   public void removeLifecycleListener(LifecycleListener<M,S> listener) {
     lifecycle.removeLifecycleListener(listener);
+  }
+  
+  @Override
+  public LifecycleListener<M, S>[] findLifecycleListeners() {
+    return lifecycle.findLifecycleListeners();
   }
   
   /**
@@ -134,8 +139,13 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
     crudLifecycle.removeCRUDLifecycleListener(listener);
   }
   
+  @Override
+  public CRUDLifecycleListener<M>[] findCRUDLifecycleListeners() {
+    return crudLifecycle.findCRUDLifecycleListeners();
+  }
   /**
    * This implementation performs the corresponding action for CRUD operation.
+   * Create the newInstance model order by preCreate(), create(), postCreate();
    * @param newInstance A new instance
    * @throws AccessDeniedException
    * @throws ServiceException
@@ -169,6 +179,7 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   
   /**
    * This implementation performs the corresponding action for CRUD operation.
+   * Delete the existingInstance model order by preDelete(), delete(), postDelete();
    * 
    * @param existingInstance An existing instance
    * @throws AccessDeniedException
@@ -202,6 +213,7 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   
   /**
    * This implementation performs the corresponding action for CRUD operation.
+   * Updating the existingInstance model order by preUpdate(), update(), postUpdate();
    * 
    * @param existingInstance An existing instance
    * @throws AccessDeniedException

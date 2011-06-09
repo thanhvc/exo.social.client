@@ -24,7 +24,7 @@ package org.exoplatform.social.client.api.event;
  * @author thanh_vucong
  *
  */
-public final class LifecycleEvent<M, S> extends Event {
+public class LifecycleEvent<M, L> extends Event {
 
   /**
    * The event type this instance represents.
@@ -33,11 +33,11 @@ public final class LifecycleEvent<M, S> extends Event {
   /**
    * The event data associated with this event.
    */
-  private S data = null;
+  private L data = null;
   /**
    * The Lifecycle on which this event occurred.
    */
-  private Lifecycle<M,S> source = null;
+  private Lifecycle<M,L> source = null;
   
   /**
    * Construct a new LifecycleEvent with the specified parameters.
@@ -45,7 +45,7 @@ public final class LifecycleEvent<M, S> extends Event {
    * @param source Component on which this event occurred
    * @param type Event type (required)
    */
-  public LifecycleEvent(Lifecycle<M,S> source, String type) {
+  public LifecycleEvent(Lifecycle<M,L> source, String type) {
    this(source, type, null);
   }
   
@@ -56,7 +56,7 @@ public final class LifecycleEvent<M, S> extends Event {
    * @param type Event type (required)
    * @param data Event data (if any)
    */
-  public LifecycleEvent(Lifecycle<M,S> source, String type, S data) {
+  public LifecycleEvent(Lifecycle<M,L> source, String type, L data) {
     this.source = source;
     this.type = type;
     this.data = data;
@@ -74,7 +74,7 @@ public final class LifecycleEvent<M, S> extends Event {
    * Return the event data of this event.
    * @return
    */
-  public S getData() {
+  public L getData() {
     return data;
   }
 
@@ -82,7 +82,7 @@ public final class LifecycleEvent<M, S> extends Event {
    * Return the Lifecycle on which this event occurred.
    * @return
    */
-  public Lifecycle<M,S> getSource() {
+  public Lifecycle<M,L> getSource() {
     return source;
   }
   

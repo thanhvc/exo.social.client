@@ -117,5 +117,13 @@ public class CRUDLifecycleSupport<M> {
       listeners = results;
     }
   }
+  
+  /**
+   * Get the crud lifecycle listeners associated with this lifecycle. If this 
+   * crud Lifecycle has no listeners registered, a zero-length array is returned.
+   */
+  public CRUDLifecycleListener<M>[] findCRUDLifecycleListeners() {
+      return listeners;
+  }
 
 }

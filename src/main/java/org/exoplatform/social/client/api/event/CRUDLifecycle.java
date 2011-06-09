@@ -17,6 +17,7 @@
 package org.exoplatform.social.client.api.event;
 
 
+
 /**
  * Common interface for component CRUD life cycle methods.
  * In order to provide a consistent to create, update and delete the model.
@@ -70,6 +71,12 @@ public interface CRUDLifecycle<M> {
   public static final String AFTER_DELETE_EVENT = "after_delete";
 
   /**
+   * Get the lifecycle listeners associated with this lifecycle. If this 
+   * Lifecycle has no listeners registered, a zero-length array is returned.
+   */
+  public CRUDLifecycleListener<M>[] findCRUDLifecycleListeners();
+  
+  /**
    * Remove a CRUDLifecycleEvent listener from this component.
    *
    * @param listener The listener to remove
@@ -82,4 +89,6 @@ public interface CRUDLifecycle<M> {
    * @param listener The listener to add
    */
   public void addCRUDLifecycleListener(CRUDLifecycleListener<M> listener);
+
+  
 }

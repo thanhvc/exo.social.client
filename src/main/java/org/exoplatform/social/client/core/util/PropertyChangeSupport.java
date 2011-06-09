@@ -126,5 +126,12 @@ public final class PropertyChangeSupport {
     }
   }
   
+  /**
+   * Get the lifecycle listeners associated with this lifecycle. If this 
+   * Lifecycle has no listeners registered, a zero-length array is returned.
+   */
+  public PropertyChangeListener[] findPropertyChangeListeners() {
+      return listeners;
+  }
   
 }

@@ -16,8 +16,6 @@
  */
 package org.exoplatform.social.client.api.event;
 
-
-
 /**
  * Common interface for component life cycle methods.
  * In order to provide a consistent to start and stop the component.
@@ -25,7 +23,7 @@ package org.exoplatform.social.client.api.event;
  * @author thanh_vucong
  *
  */
-public interface Lifecycle<M, S> {
+public interface Lifecycle<M,S> {
 
   /**
    * The LifecycleEvent type for the "component start" event.
@@ -61,6 +59,13 @@ public interface Lifecycle<M, S> {
    */
   public static final String DESTROY_EVENT = "destroy";
  
+  
+  /**
+   * Get the lifecycle listeners associated with this lifecycle. If this 
+   * Lifecycle has no listeners registered, a zero-length array is returned.
+   */
+  public LifecycleListener<M,S>[] findLifecycleListeners();
+  
   /**
    * Remove a LifecycleEvent listener from this component.
    *
