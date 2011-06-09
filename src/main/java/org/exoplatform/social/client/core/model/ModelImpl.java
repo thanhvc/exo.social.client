@@ -156,11 +156,6 @@ public class ModelImpl extends JSONObject implements Model {
   @Override
   public PropertyChangeListener[] findPropertyChangeListeners() {
     return propertyChanges.findPropertyChangeListeners();
-  } 
-  
-  @Override
-  public PropertyChangeListener[] findPropertyChangeListeners() {
-    return propertyChanges.findPropertyChangeListeners();
   }
 
 }
