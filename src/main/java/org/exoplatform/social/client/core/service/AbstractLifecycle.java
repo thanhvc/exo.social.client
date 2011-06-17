@@ -1,18 +1,18 @@
 /*
  * Copyright (C) 2003-2011 eXo Platform SAS.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License
- * as published by the Free Software Foundation; either version 3
- * of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see<http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package org.exoplatform.social.client.core.service;
 
@@ -28,7 +28,6 @@ import org.exoplatform.social.client.core.util.CRUDLifecycleSupport;
 import org.exoplatform.social.client.core.util.LifecycleSupport;
 
 /**
- * /**
  * Abstract implementation of the <b>Lifecycle</b> interface, providing common 
  * functionality required when Component execution
  * 
@@ -56,7 +55,7 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   
   
   /**
-   * Prepare for active use of the public methods of this Component.
+   * Prepares for active use of the public methods of this Component.
    * @exception LifecycleException if this component detects a fatal error
    *  that prevents it from being started
    */
@@ -101,7 +100,7 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   }
   
   /**
-   * Add a lifecycle event listener to this component
+   * Adds a lifecycle event listener to this component.
    * 
    * @param listener The listener is added
    */
@@ -110,20 +109,24 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   }
   
   /**
-   * Remove a lifecycle event listener which was added to this component.
+   * Removes a lifecycle event listener which was added to this component.
+   *
    * @param listener The listener will be removed.
    */
   public void removeLifecycleListener(LifecycleListener<M,S> listener) {
     lifecycle.removeLifecycleListener(listener);
   }
-  
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public LifecycleListener<M, S>[] findLifecycleListeners() {
     return lifecycle.findLifecycleListeners();
   }
   
   /**
-   * Add a crud lifecycle event listener to this component
+   * Adds a CRUD lifecycle event listener to this component.
    * 
    * @param listener The listener is added
    */
@@ -132,20 +135,25 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   }
   
   /**
-   * Remove a crud lifecycle event listener which was added to this component.
+   * Removes a crud lifecycle event listener which was added to this component.
    * @param listener The listener will be removed.
    */
   public void removeCRUDLifecycleListener(CRUDLifecycleListener<M> listener) {
     crudLifecycle.removeCRUDLifecycleListener(listener);
   }
-  
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public CRUDLifecycleListener<M>[] findCRUDLifecycleListeners() {
     return crudLifecycle.findCRUDLifecycleListeners();
   }
+
   /**
    * This implementation performs the corresponding action for CRUD operation.
    * Create the newInstance model order by preCreate(), create(), postCreate();
+   *
    * @param newInstance A new instance
    * @throws AccessDeniedException
    * @throws ServiceException
@@ -157,7 +165,8 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   }
   
  /**
-  * Override this method to perform pre-processing on new model being saved.
+  * Overrides this method to perform pre-processing on new model being saved.
+  *
   * @param newInstance A new instance
   * @throws AccessDeniedException
   * @throws ServiceException
@@ -168,7 +177,8 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   
   
   /**
-   * Override this method to perform post-processing on new model being saved.
+   * Overrides this method to perform post-processing on new model being saved.
+   *
    * @param newInstance A new instance
    * @throws AccessDeniedException
    * @throws ServiceException
@@ -192,7 +202,8 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   }
   
   /**
-   * Override this method to perform pre-processing on existing model being deleted.
+   * Overrides this method to perform pre-processing on existing model being deleted.
+   *
    * @param existingInstance An existing instance
    * @throws AccessDeniedException
    * @throws ServiceException
@@ -202,7 +213,8 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   }
   
   /**
-   * Override this method to perform post-processing on existing model being deleted.
+   * Overrides this method to perform post-processing on existing model being deleted.
+   *
    * @param existingInstance An existing instance
    * @throws AccessDeniedException
    * @throws ServiceException
@@ -226,7 +238,8 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   }
   
   /**
-   * Override this method to perform pre-processing on existing model being updated.
+   * Overrides this method to perform pre-processing on existing model being updated.
+   *
    * @param existingInstance An existing instance
    * @throws AccessDeniedException
    * @throws ServiceException
@@ -236,7 +249,8 @@ public abstract class AbstractLifecycle<M, S> implements Service<M>, CRUDLifecyc
   }
   
   /**
-   * Override this method to perform post-processing on existing model being updated.
+   * Overrides this method to perform post-processing on existing model being updated.
+   *
    * @param existingInstance An existing instance
    * @throws AccessDeniedException
    * @throws ServiceException

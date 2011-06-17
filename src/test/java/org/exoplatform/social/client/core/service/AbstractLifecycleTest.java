@@ -36,7 +36,8 @@ public abstract class AbstractLifecycleTest {
   }
   
   /**
-   * Define the MockEvent class
+   * Defines the MockEvent class.
+   *
    * @author thanh_vucong
    *
    */
@@ -47,16 +48,23 @@ public abstract class AbstractLifecycleTest {
 
     }
   }
-  
+
+  /**
+   * Defines the MockListener class.
+   */
   public class MockLifecycleListener implements LifecycleListener<MockModel, MockService> {
 
     Collection<String> events = new ArrayList<String>();
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void broadcast(LifecycleEvent<MockModel, MockService> event) {
       recordEvent(event);
     }
     /**
-     * Verifying the event type which has been raised to this listener.
+     * Verifies the event type which has been raised to this listener.
      * @param eventName
      * @return
      */
@@ -65,7 +73,7 @@ public abstract class AbstractLifecycleTest {
     }
     
     /**
-     * Support to record the event which raise to this listener.
+     * Supports to record the event which raise to this listener.
      * @param event
      */
     private void recordEvent(LifecycleEvent<MockModel, MockService> event) {
@@ -74,7 +82,8 @@ public abstract class AbstractLifecycleTest {
   }
   
   /**
-   * Define the MockCRUDListener which uses for UnitTestCase.
+   * Defines the MockCRUDListener which uses for UnitTestCase.
+   *
    * @author thanh_vucong
    *
    */
@@ -87,7 +96,8 @@ public abstract class AbstractLifecycleTest {
       
     }
     /**
-     * Verifying the event type which has been raised to this listener.
+     * Verifies the event type which has been raised to this listener.
+     *
      * @param eventName
      * @return
      */
@@ -96,25 +106,34 @@ public abstract class AbstractLifecycleTest {
     }
     
     /**
-     * Support to record the event which raise to this listener.
+     * Supports to record the event which raise to this listener.
+     *
      * @param event
      */
     private void recordEvent(CRUDLifecycleEvent<MockModel> event) {
       events.add(event.getType());
     }
   }
-  
+
+  /**
+   * Defined the mock class for PropertyChangeListener.
+   */
   public class MockPropertyChangeListener implements PropertyChangeListener {
 
-    Map<String, PropertyChangeEvent> eventHolder = new HashMap<String, PropertyChangeEvent>(); 
+    Map<String, PropertyChangeEvent> eventHolder = new HashMap<String, PropertyChangeEvent>();
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void propertyChange(PropertyChangeEvent event) {
       recordEvent(event);
     }
     
     /**
-     * Verifying the event type which has been raised to this listener.
-     * @param eventName
+     * Verifies the event type which has been raised to this listener.
+     *
+     * @param propertyName
      * @return
      */
     public boolean hasEvent(String propertyName) {
@@ -122,7 +141,8 @@ public abstract class AbstractLifecycleTest {
     }
     
     /**
-     * Support to record the event which raise to this listener.
+     * Supports to record the event which raise to this listener.
+     *
      * @param event
      */
     private void recordEvent(PropertyChangeEvent event) {

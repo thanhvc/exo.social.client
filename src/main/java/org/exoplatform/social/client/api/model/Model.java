@@ -1,18 +1,18 @@
 /*
  * Copyright (C) 2003-2011 eXo Platform SAS.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License
- * as published by the Free Software Foundation; either version 3
- * of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see<http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package org.exoplatform.social.client.api.model;
 
@@ -119,24 +119,24 @@ public interface Model extends Map, JSONAware, JSONStreamAware {
   void addToListField(String fieldName, Object item);
   
   /**
-   * Add a property change event listener to this model
+   * Adds a property change event listener to this model
    * 
-   * @param listener The listener is added
+   * @param listener The listener to be added
    */
-  public void addPropertyChangeListener(PropertyChangeListener listener);
+  void addPropertyChangeListener(PropertyChangeListener listener);
   
   /**
-   * Remove a property change event listener which was added to this model.
-   * @param listener The listener will be removed.
+   * Removes a property change event listener which was added to this model.
+   *
+   * @param listener The listener to be removed.
    */
-  public void removePropertyChangeListener(PropertyChangeListener listener);
+  void removePropertyChangeListener(PropertyChangeListener listener);
   
   /**
-   * /**
-   * Get the property change listeners associated with this property change listener. If this 
+   * Gets the property change listeners registered and associated with this property change listener. If this
    * property change has no listeners registered, a zero-length array is returned.
    * 
-   * @return
+   * @return an array of listeners
    */
-  public PropertyChangeListener[] findPropertyChangeListeners();
+  PropertyChangeListener[] findPropertyChangeListeners();
 }

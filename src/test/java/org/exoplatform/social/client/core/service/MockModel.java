@@ -17,7 +17,7 @@ public class MockModel extends ModelImpl {
     private final String jsonString;
 
     /**
-     * create a field base on the a json element.
+     * creates a field base on the a json element.
      *
      * @param jsonString the name of the element
      */
@@ -26,7 +26,7 @@ public class MockModel extends ModelImpl {
     }
 
     /**
-     * emit the field as a json element.
+     * emits the field as a json element.
      *
      * @return the field name
      */

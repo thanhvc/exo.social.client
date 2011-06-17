@@ -4,7 +4,8 @@ import org.exoplatform.social.client.api.auth.AccessDeniedException;
 import org.exoplatform.social.client.api.service.ServiceException;
 
 /**
- * Define the MockModel class which provide to the UnitTestCase.
+ * Defines the MockModel class which provide to the UnitTestCase.
+ *
  * @author thanh_vucong
  *
  */
@@ -35,7 +36,5 @@ public class MockService extends AbstractLifecycle<MockModel, MockService> {
     // TODO Auto-generated method stub
     
   }
-
- 
 
 }

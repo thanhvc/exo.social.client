@@ -1,11 +1,14 @@
 package org.exoplatform.social.client.core.service;
 
-import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import junit.framework.Assert;
+
+/**
+ * Unit Test for {@link org.exoplatform.social.client.api.event.PropertyChangeListener}.
+ */
 public class PropertyChangeListenerTest extends AbstractLifecycleTest {
 
   @Before
@@ -33,7 +36,8 @@ public class PropertyChangeListenerTest extends AbstractLifecycleTest {
   public void handlePropertyChangeListener() throws Exception {
     mockModel.setField(MockModel.Field.ID.toString(), "newValue");
     Assert.assertTrue(capturePropertyChange.eventHolder.containsKey(MockModel.Field.ID.toString()));
-    Assert.assertEquals(MockModel.Field.ID.toString(), capturePropertyChange.eventHolder.get(MockModel.Field.ID.toString()).getPropertyName());
+    Assert.assertEquals(MockModel.Field.ID.toString(),
+                        capturePropertyChange.eventHolder.get(MockModel.Field.ID.toString()).getPropertyName());
     Assert.assertEquals("newValue", capturePropertyChange.eventHolder.get(MockModel.Field.ID.toString()).getNewValue());
     Assert.assertNull(capturePropertyChange.eventHolder.get(MockModel.Field.ID.toString()).getOldValue());
   }
@@ -45,13 +49,14 @@ public class PropertyChangeListenerTest extends AbstractLifecycleTest {
     
     Assert.assertEquals(1, capturePropertyChange.eventHolder.size());
     Assert.assertTrue(capturePropertyChange.eventHolder.containsKey(MockModel.Field.ID.toString()));
-    Assert.assertEquals(MockModel.Field.ID.toString(), capturePropertyChange.eventHolder.get(MockModel.Field.ID.toString()).getPropertyName());
+    Assert.assertEquals(MockModel.Field.ID.toString(),
+                        capturePropertyChange.eventHolder.get(MockModel.Field.ID.toString()).getPropertyName());
     Assert.assertEquals("newValue", capturePropertyChange.eventHolder.get(MockModel.Field.ID.toString()).getNewValue());
     Assert.assertEquals("oldValue", capturePropertyChange.eventHolder.get(MockModel.Field.ID.toString()).getOldValue());
   }
   
   @Test
-  public void heckRaiseEventCountSameField() throws Exception {
+  public void checkRaiseEventCountSameField() throws Exception {
     mockModel.setField(MockModel.Field.ID.toString(), "oldValue");
     mockModel.setField(MockModel.Field.ID.toString(), "newValue");
     Assert.assertEquals(1, capturePropertyChange.eventHolder.size());

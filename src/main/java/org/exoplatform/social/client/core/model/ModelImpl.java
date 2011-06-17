@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.exoplatform.social.client.api.event.LifecycleListener;
 import org.exoplatform.social.client.api.event.PropertyChangeListener;
 import org.exoplatform.social.client.api.model.Model;
 import org.exoplatform.social.client.core.util.PropertyChangeSupport;
@@ -42,6 +41,7 @@ public class ModelImpl extends JSONObject implements Model {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String[] getFieldNames() {
     int i = 0;
     String[] fieldNames = new String[size()];
@@ -58,6 +58,7 @@ public class ModelImpl extends JSONObject implements Model {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean hasField(String fieldName) {
     return containsKey(fieldName);
   }
@@ -65,6 +66,7 @@ public class ModelImpl extends JSONObject implements Model {
   /**
    * {@inheritDoc}
    */
+  @Override
   public Object getField(String fieldName) {
     return get(fieldName);
   }
@@ -72,6 +74,7 @@ public class ModelImpl extends JSONObject implements Model {
   /**
    * {@inheritDoc}
    */
+  @Override
   public Map getFieldAsMap(String fieldName) {
     return (Map) get(fieldName);
   }
@@ -79,6 +82,7 @@ public class ModelImpl extends JSONObject implements Model {
   /**
    * {@inheritDoc}
    */
+  @Override
   public List getFieldAsList(String fieldName) {
     return (List) get(fieldName);
   }
@@ -86,6 +90,7 @@ public class ModelImpl extends JSONObject implements Model {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String getFieldAsString(String fieldName) {
     try {
       return (String) get(fieldName);
@@ -97,6 +102,7 @@ public class ModelImpl extends JSONObject implements Model {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean isFieldMultikeyed(String fieldName) {
     Object field = get(fieldName);
     if (field instanceof Map) {
@@ -109,6 +115,7 @@ public class ModelImpl extends JSONObject implements Model {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean isFieldMultivalued(String fieldName) {
     Object field = get(fieldName);
     if (field instanceof List) {
@@ -121,6 +128,7 @@ public class ModelImpl extends JSONObject implements Model {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setField(String fieldName, Object value) {
     //Raise event when change value of property.
     propertyChanges.propertyChange(fieldName, get(fieldName), value);
@@ -130,6 +138,7 @@ public class ModelImpl extends JSONObject implements Model {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void addToListField(String fieldName, Object item) {
     List<Object> listField;
 
@@ -142,17 +151,27 @@ public class ModelImpl extends JSONObject implements Model {
     listField.add(item);
     put(fieldName, listField);
   }
-  
+
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void addPropertyChangeListener(PropertyChangeListener listener) {
     propertyChanges.addPropertyChangeListener(listener);
   }
-  
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void removePropertyChangeListener(PropertyChangeListener listener) {
     propertyChanges.removeLifecycleListener(listener);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public PropertyChangeListener[] findPropertyChangeListeners() {
     return propertyChanges.findPropertyChangeListeners();

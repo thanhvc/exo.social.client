@@ -1,18 +1,18 @@
 /*
  * Copyright (C) 2003-2011 eXo Platform SAS.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License
- * as published by the Free Software Foundation; either version 3
- * of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see<http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package org.exoplatform.social.client.api.event;
 
@@ -33,7 +33,7 @@ public final class LifecycleException extends RuntimeException {
    */
   public LifecycleException() {
 
-      this(null, null);
+    this(null, null);
 
   }
 
@@ -45,7 +45,7 @@ public final class LifecycleException extends RuntimeException {
    */
   public LifecycleException(String message) {
 
-      this(message, null);
+    this(message, null);
 
   }
 
@@ -57,7 +57,7 @@ public final class LifecycleException extends RuntimeException {
    */
   public LifecycleException(Throwable cause) {
 
-      this(null, cause);
+    this(null, cause);
 
   }
 
@@ -71,9 +71,9 @@ public final class LifecycleException extends RuntimeException {
    */
   public LifecycleException(String message, Throwable cause) {
 
-      super();
-      this.message = message;
-      this.cause = cause;
+    super();
+    this.message = message;
+    this.cause = cause;
 
   }
 
@@ -101,7 +101,7 @@ public final class LifecycleException extends RuntimeException {
    */
   public String getMessage() {
 
-      return (message);
+    return (message);
 
   }
 
@@ -111,27 +111,27 @@ public final class LifecycleException extends RuntimeException {
    */
   public Throwable getCause() {
 
-      return (cause);
+    return (cause);
 
   }
 
 
   /**
-   * Return a formatted string that describes this exception.
+   * Returns a formatted string that describes this exception.
    */
   public String toString() {
 
-      StringBuffer sb = new StringBuffer("LifecycleException:  ");
-      if (message != null) {
-          sb.append(message);
-          if (cause != null) {
-              sb.append(":  ");
-          }
-      }
+    StringBuffer sb = new StringBuffer("LifecycleException:  ");
+    if (message != null) {
+      sb.append(message);
       if (cause != null) {
-          sb.append(cause.toString());
+        sb.append(":  ");
       }
-      return (sb.toString());
+    }
+    if (cause != null) {
+      sb.append(cause.toString());
+    }
+    return (sb.toString());
 
   }
 

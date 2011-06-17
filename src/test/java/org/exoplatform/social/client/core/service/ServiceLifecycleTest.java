@@ -1,13 +1,14 @@
 package org.exoplatform.social.client.core.service;
 
 import org.exoplatform.social.client.api.event.Lifecycle;
-import org.exoplatform.social.client.core.service.AbstractLifecycleTest.MockCRUDLifecycleListener;
-import org.exoplatform.social.client.core.service.AbstractLifecycleTest.MockLifecycleListener;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Unit Test for {@link Lifecycle}.
+ */
 public class ServiceLifecycleTest extends AbstractLifecycleTest {
 
   @Before

@@ -1,18 +1,18 @@
 /*
  * Copyright (C) 2003-2011 eXo Platform SAS.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License
- * as published by the Free Software Foundation; either version 3
- * of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see<http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package org.exoplatform.social.client.core.util;
 
@@ -22,9 +22,9 @@ import org.exoplatform.social.client.api.event.LifecycleListener;
 
 /**
  * 
- *  This is a utility class that can be used by models that assist 
- *  in firing LifecycleEvent notifications to registered LifecycleListeners 
- *  and delegate various work to it
+ * This is a utility class that can be used by models that assist
+ * in firing LifecycleEvent notifications to registered LifecycleListeners
+ * and delegate various work to it
  * 
  * @author thanh_vucong
  *
@@ -42,12 +42,12 @@ public final class LifecycleSupport<M, L> {
   private LifecycleListener<M,L> listeners[] = new LifecycleListener[0];
   
   /**
-   * Lock object for change to listeners
+   * Locks object for change to listeners
    */
   private final Object listenersLock = new Object();
   
   /**
-   * Construct a new LifecycleHelper object associated with the specified Lifecycle component.
+   * Constructs a new LifecycleHelper object associated with the specified Lifecycle component.
    * @param lifecycle
    */
   public LifecycleSupport(Lifecycle<M,L> lifecycle) {
@@ -57,7 +57,8 @@ public final class LifecycleSupport<M, L> {
   
   
   /**
-   * Add a Lifecycle event listener to this component
+   * Adds a Lifecycle event listener to this component.
+   *
    * @param listener The listener is added.
    */
   public void addLifecycleListener(LifecycleListener<M,L> listener) {
@@ -74,7 +75,7 @@ public final class LifecycleSupport<M, L> {
   }
   
   /**
-   * Notify all Lifecycle event listeners that a particular event has 
+   * Notifies all Lifecycle event listeners that a particular event has
    * occurred for this Container. The default implementation performs 
    * this notification synchronously using the calling thread.
    * 
@@ -90,42 +91,44 @@ public final class LifecycleSupport<M, L> {
   }
   
   /**
-   * Remove a lifecycle event listener which was registed to component
+   * Removes a lifecycle event listener which was registered to component.
+   *
    * @param listener The listener will be removed.
    */
-  public void removeLifecycleListener(LifecycleListener<M,L> listener) {
-    synchronized(listenersLock) {
+  public void removeLifecycleListener(LifecycleListener<M, L> listener) {
+    synchronized (listenersLock) {
       int n = -1;
       for (int i = 0; i < listeners.length; i++) {
-          if (listeners[i] == listener) {
-              n = i;
-              break;
-          }
+        if (listeners[i] == listener) {
+          n = i;
+          break;
+        }
       }
       //not found any listener in Listeners
       if (n < 0) {
         return;
       }
-      
-      
+
+
       //Execute to remove the listener
-      LifecycleListener<M,L> results[] = new LifecycleListener[listeners.length - 1];
+      LifecycleListener<M, L> results[] = new LifecycleListener[listeners.length - 1];
       int j = 0;
       for (int i = 0; i < listeners.length; i++) {
-          if (i != n)
-              results[j++] = listeners[i];
+        if (i != n) {
+          results[j++] = listeners[i];
+        }
       }
       listeners = results;
     }
   }
   
   /**
-   * Get the lifecycle listeners associated with this lifecycle. If this 
+   * Gets the lifecycle listeners associated with this lifecycle. If this
    * Lifecycle has no listeners registered, a zero-length array is returned.
    */
-  public LifecycleListener<M,L>[] findLifecycleListeners() {
+  public LifecycleListener<M, L>[] findLifecycleListeners() {
 
-      return listeners;
+    return listeners;
 
   }
   
