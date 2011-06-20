@@ -18,7 +18,8 @@ public class MockPropertyChangeListener implements PropertyChangeListener {
   }
   
   /**
-   * Retrieving the property name when Model raise the event to this listener.
+   * Retrieves the property name when Model raise the event to this listener.
+   *
    * @return propertyName String.
    */
   public String getPropertyName() {
@@ -28,7 +29,8 @@ public class MockPropertyChangeListener implements PropertyChangeListener {
   }
   
   /**
-   * Retrieving the oldValue of the property specified by property name.
+   * Retrieves the oldValue of the property specified by property name.
+   *
    * @return  
    */
   public Object getOldValue() {
@@ -38,8 +40,9 @@ public class MockPropertyChangeListener implements PropertyChangeListener {
   }
   
   /**
-   * Retrieving the newValue of the property which will be assigned 
-   * to the property specified by property name
+   * Retrieves the newValue of the property which will be assigned
+   * to the property specified by property name.
+   *
    * @return newValue of property.
    */
   public Object getNewValue() {

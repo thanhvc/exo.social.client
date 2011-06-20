@@ -25,13 +25,14 @@ package org.exoplatform.social.client.api.event;
  * 
  * @author thanh_vucong
  *
- * @param <M> The object which implements Model interface
+ * @param <M> The type which implements Model interface
  */
 public interface CRUDLifecycleListener<M> {
 
   /**
    * Broadcasts the event to the CRUDLifecycleListener.
-   * @param event the event is broadcasted
+   *
+   * @param event the event is broadcasted.
    */
   public void broadcast(CRUDLifecycleEvent<M> event);
 }

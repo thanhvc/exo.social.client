@@ -1,18 +1,18 @@
 /*
  * Copyright (C) 2003-2011 eXo Platform SAS.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License
- * as published by the Free Software Foundation; either version 3
- * of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see<http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package org.exoplatform.social.client.core.util;
 
@@ -48,7 +48,8 @@ public final class PropertyChangeSupport {
   
   
   /**
-   * Construct a new <code>PropertyChangeSupport</code> object associated with the specified Model object.
+   * Constructs a new <code>PropertyChangeSupport</code> object associated with the specified Model object.
+   *
    * @param source
    */
   public PropertyChangeSupport(Model source) {
@@ -56,7 +57,8 @@ public final class PropertyChangeSupport {
   }
   
   /**
-   * Add a PropertyChange event listener to this component
+   * Adds a PropertyChange event listener to this component.
+   *
    * @param listener The listener is added.
    */
   public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -73,7 +75,7 @@ public final class PropertyChangeSupport {
   }
   
   /**
-   * Notify all PropertyChange event listeners that a particular event has 
+   * Notifies all PropertyChange event listeners that a particular event has
    * occurred for this Container. The default implementation performs 
    * this notification synchronously using the calling thread.
    * 
@@ -96,38 +98,39 @@ public final class PropertyChangeSupport {
   }
   
   /**
-   * Remove a PropertyChange event listener which was registered to model
+   * Removes a PropertyChange event listener which was registered to model
    * @param listener The listener will be removed.
    */
   public void removeLifecycleListener(PropertyChangeListener listener) {
-    synchronized(listenersLock) {
+    synchronized (listenersLock) {
       int n = -1;
       for (int i = 0; i < listeners.length; i++) {
-          if (listeners[i] == listener) {
-              n = i;
-              break;
-          }
+        if (listeners[i] == listener) {
+          n = i;
+          break;
+        }
       }
       //not found any listener in Listeners
       if (n < 0) {
         return;
       }
-      
+
       /**
        * Execute to remove the listener
        */
       PropertyChangeListener results[] = new PropertyChangeListener[listeners.length - 1];
       int j = 0;
       for (int i = 0; i < listeners.length; i++) {
-          if (i != n)
-              results[j++] = listeners[i];
+        if (i != n) {
+          results[j++] = listeners[i];
+        }
       }
       listeners = results;
     }
   }
   
   /**
-   * Get the lifecycle listeners associated with this lifecycle. If this 
+   * Gets the lifecycle listeners associated with this lifecycle. If this
    * Lifecycle has no listeners registered, a zero-length array is returned.
    */
   public PropertyChangeListener[] findPropertyChangeListeners() {
