@@ -26,6 +26,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.exoplatform.social.client.api.model.Model;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.ContainerFactory;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -110,6 +111,29 @@ public class SocialJSONDecodingSupport {
       }
     };
     return (Map) parser.parse(jsonContent, containerFactory);
+  }
+  
+  /**
+   * 
+   * @param jsonContent
+   * @return
+   * @throws ParseException
+   */
+  public static LinkedList parserJSONToList(String jsonContent) throws ParseException {
+    JSONParser parser = new JSONParser();
+    
+    ContainerFactory containerFactory = new ContainerFactory() {
+      public List creatArrayContainer() {
+        return new LinkedList();
+      }
+
+      public Map createObjectContainer() {
+          return new LinkedHashMap();
+      }
+    };
+    
+    LinkedList obj = (LinkedList) parser.parse(jsonContent, containerFactory);
+    return obj;
   }
   
   /**
