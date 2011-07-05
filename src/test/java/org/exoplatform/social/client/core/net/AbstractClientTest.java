@@ -20,6 +20,7 @@ import org.exoplatform.social.client.api.SocialClientContext;
 import org.exoplatform.social.client.api.model.Identity;
 import org.exoplatform.social.client.api.service.IdentityService;
 import org.exoplatform.social.client.api.service.ServiceException;
+import org.exoplatform.social.client.core.ClientServiceFactory;
 import org.exoplatform.social.client.core.service.IdentityServiceImpl;
 import org.junit.After;
 import org.junit.Before;
@@ -44,8 +45,7 @@ public abstract class AbstractClientTest {
     SocialClientContext.setRestContextName("rest-socialdemo");
     SocialClientContext.setRestVersion("v1-alpha1");
     SocialClientContext.setIsDeveloping(true);
-    identityService = new IdentityServiceImpl();
-
+    identityService = ClientServiceFactory.newInstance(IdentityServiceImpl.class);
   }
   
   @After
