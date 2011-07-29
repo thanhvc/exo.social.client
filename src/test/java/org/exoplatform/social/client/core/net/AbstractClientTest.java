@@ -16,7 +16,6 @@
  */
 package org.exoplatform.social.client.core.net;
 
-
 import org.exoplatform.social.client.api.SocialClientContext;
 import org.exoplatform.social.client.api.model.RestIdentity;
 import org.exoplatform.social.client.api.service.IdentityService;

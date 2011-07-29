@@ -16,10 +16,15 @@
  */
 package org.exoplatform.social.client.core.service;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.exoplatform.social.client.api.ClientServiceFactory;
+import org.exoplatform.social.client.api.common.RealtimeListAccess;
 import org.exoplatform.social.client.api.model.RestActivity;
 import org.exoplatform.social.client.api.model.RestComment;
 import org.exoplatform.social.client.api.model.RestIdentity;
@@ -33,8 +38,6 @@ import org.exoplatform.social.client.core.net.AbstractClientTest;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.fail;
 
 
 /**
@@ -201,7 +204,7 @@ public class ActivityServiceIT extends AbstractClientTest {
   }
   */
 
-  /*
+  
   @Test
   public void testGetActivitySteam() {
     startSessionAs("demo", "gtn");
@@ -209,10 +212,15 @@ public class ActivityServiceIT extends AbstractClientTest {
     String demoIdentityId = identityService.getIdentityId("organization", "demo");
     RestIdentity demoIdentity = identityService.get(demoIdentityId);
 
-    int i = 1;
+    int i = 10;
     createActivities(i);
     RealtimeListAccess<RestActivity> activityListAccess = activityService.getActivityStream(demoIdentity);
-    assertEquals(activityListAccess.getSize(), equalTo(1));
+    List<RestActivity> activities = activityListAccess.loadAsList(0, 100);
+    assertThat("ActivityStream's size must be equals :: 10", activities.size(), equalTo(10));
+    
+    for (RestActivity model : activityListAccess.load(0, 100)) {
+      System.out.println("PostedTime:: " + model.getPostedTime());
+    }
     /*
     for(int j = 0; i < j; i++){
       assertThat(result.load(j, j+1)[0].getTitle(), equalTo(new Integer(j).toString()));
@@ -224,8 +232,10 @@ public class ActivityServiceIT extends AbstractClientTest {
     // TODO: Cause the Rest API don't provide relationship and space interface so
     // we cannot create data for test connectionActivityStream and spaceActivitySteam.
     // Improve in next version
+     */
+     
   }
-  */
+  
 
   private List<RestActivity> createActivities(int numberOfActivity) {
     List<RestActivity> createdActivityList = new ArrayList<RestActivity>();

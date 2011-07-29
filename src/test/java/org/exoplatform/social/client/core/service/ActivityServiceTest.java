@@ -16,10 +16,14 @@
  */
 package org.exoplatform.social.client.core.service;
 
+import org.easymock.EasyMock;
+import org.exoplatform.social.client.api.model.RestActivity;
 import org.exoplatform.social.client.api.model.RestIdentity;
 import org.exoplatform.social.client.api.service.ActivityService;
 import org.exoplatform.social.client.api.service.IdentityService;
-import org.exoplatform.social.client.core.net.AbstractClientTest;
+import org.exoplatform.social.client.core.model.RestActivityImpl;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -29,21 +33,39 @@ import org.testng.annotations.Test;
  * @since Jul 3, 2011
  */
 
-public class ActivityServiceTest extends AbstractClientTest {
+public class ActivityServiceTest {
   private IdentityService<RestIdentity> identityService;
-  private ActivityService activityService;
+  private ActivityService<RestActivity> activityService;
+   
+  RestActivity activity;
 
+  @BeforeMethod
   public void setUp() {
-    super.setUp();
-    activityService = new ActivityServiceImpl();
+    
+    activityService = EasyMock.createMock(ActivityServiceImpl.class);
+    //activityService = new ActivityServiceImpl();
+    //activity = new RestActivityImpl();
+    activity = EasyMock.createMock(RestActivityImpl.class);
   }
 
-  public void tearDown() {
-    activityService = null;
-    super.tearDown();
-  }
-  @Test
-  public void testDump() {
-  
+ 
+  @Test(groups = "mock")
+  public void testCreateActivity() {
+   
+    EasyMock.expect(activity.getId()).andReturn("123456789");
+    EasyMock.expect(activity.getTitle()).andReturn("mockito");
+    
+    EasyMock.replay(activity);
+    
+    EasyMock.expect(activityService.create(activity)).andReturn(activity);
+   
+    EasyMock.replay(activityService);
+    
+    RestActivity got = activityService.create(activity);
+    
+    
+    Assert.assertEquals(activity.getId(), "123456789");
+    Assert.assertEquals(activity.getTitle(), "mockito");
+    Assert.assertEquals(got.getTitle(), activity.getTitle());
   }
 }
