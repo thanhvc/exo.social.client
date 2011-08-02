@@ -16,12 +16,16 @@
  */
 package org.exoplatform.social.client.core.service;
 
-import org.easymock.EasyMock;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.exoplatform.social.client.api.model.RestActivity;
-import org.exoplatform.social.client.api.model.RestIdentity;
 import org.exoplatform.social.client.api.service.ActivityService;
-import org.exoplatform.social.client.api.service.IdentityService;
-import org.exoplatform.social.client.core.model.RestActivityImpl;
+import org.exoplatform.social.client.api.service.ServiceException;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -34,38 +38,79 @@ import org.testng.annotations.Test;
  */
 
 public class ActivityServiceTest {
-  private IdentityService<RestIdentity> identityService;
-  private ActivityService<RestActivity> activityService;
+  
+  @Mock private ActivityService<RestActivity> activityService;
    
-  RestActivity activity;
+  @Mock private RestActivity activity;
 
   @BeforeMethod
   public void setUp() {
-    
-    activityService = EasyMock.createMock(ActivityServiceImpl.class);
-    //activityService = new ActivityServiceImpl();
-    //activity = new RestActivityImpl();
-    activity = EasyMock.createMock(RestActivityImpl.class);
+    //using when you configure the @Mock annotation
+    MockitoAnnotations.initMocks(this);
+    //activityService = mock(ActivityServiceImpl.class);
+    //activity = mock(RestActivityImpl.class);
   }
 
  
-  @Test(groups = "mock")
+  @Test(groups = "ActivityServiceMock")
   public void testCreateActivity() {
-   
-    EasyMock.expect(activity.getId()).andReturn("123456789");
-    EasyMock.expect(activity.getTitle()).andReturn("mockito");
+    createMock();
     
-    EasyMock.replay(activity);
-    
-    EasyMock.expect(activityService.create(activity)).andReturn(activity);
-   
-    EasyMock.replay(activityService);
+    when(activityService.create(activity)).thenReturn(activity);
     
     RestActivity got = activityService.create(activity);
+    assertThat(got.getId(), equalTo("123456789"));
+    assertThat(got.getTitle(), equalTo("mockito"));
     
-    
-    Assert.assertEquals(activity.getId(), "123456789");
-    Assert.assertEquals(activity.getTitle(), "mockito");
-    Assert.assertEquals(got.getTitle(), activity.getTitle());
+    verify(activity).getId();
+    verify(activity).getTitle();
+    verify(activityService).create(activity);
   }
+  
+  @Test(groups = "ActivityServiceMock")
+  public void testGetActivity() {
+    createMock();
+    when(activityService.get("123456789")).thenReturn(activity);
+    RestActivity got = activityService.get("123456789");
+    
+    assertThat(got.getId(), equalTo("123456789"));
+    assertThat(got.getTitle(), equalTo("mockito"));
+    
+    verify(activity).getId();
+    verify(activity).getTitle();
+    verify(activityService).get("123456789");
+  }
+  
+  @Test(groups = "ActivityServiceMock")
+  public void testUpdateActivity() {
+    createMock();
+    when(activityService.update(activity)).thenThrow(new ServiceException(ActivityServiceImpl.class,"Do Not Support",null));
+    RestActivity got = activityService.update(activity);
+    Assert.fail("ServiceException must be thrown");
+    
+    verify(activityService).update(activity);
+  }
+  
+  @Test(groups = "ActivityServiceMock")
+  public void testDeleteActivity() {
+    createMock();
+    when(activityService.delete(activity)).thenReturn(activity);
+    RestActivity got = activityService.delete(activity);
+    
+    assertThat(got.getId(), equalTo("123456789"));
+    assertThat(got.getTitle(), equalTo("mockito"));
+    
+    verify(activity).getId();
+    verify(activity).getTitle();
+    verify(activityService).get("123456789");
+  }
+  
+  /**
+   * Creates the ActivityMock object.
+   */
+  private void createMock() {
+    when(activity.getId()).thenReturn("123456789");
+    when(activity.getTitle()).thenReturn("mockito");
+  }
+  
 }
