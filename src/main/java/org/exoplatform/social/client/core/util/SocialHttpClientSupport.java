@@ -351,12 +351,26 @@ public class SocialHttpClientSupport {
             "/api/social/" + SocialClientContext.getRestVersion() +
             "/" + SocialClientContext.getPortalContainerName() + "/";
   }
-  
+  /**
+   * Builds public rest path from the context.
+   * /{restContextName}/api/social/{restVersion}/{portalContainerName}/
+   * By using this common rest path, it's easy to append the resource name, for example: activity or identity.
+   *
+   * @param restVersion RestVersion = {v1-alpha1, v1-alpha2, ...}.
+   * @return the string path
+   */
   public static String buildPublicRestPathFromContext(Option<String> restVersion) {
     String baseURL = SocialClientContext.getPublicBaseURL();
     return SocialClientContext.fromPath(baseURL).build(restVersion.getValue());
   }
-  
+  /**
+   * Builds the private rest path from the context.
+   * /{restContextName}/|/{private}|/api/social/{restVersion}/{portalContainerName}/
+   * By using this common rest path, it's easy to append the resource name, for example: activity or identity.
+   *
+   * @param restVersion RestVersion = {v1-alpha1, v1-alpha2, ...}.
+   * @return the string path
+   */
   public static String buildPrivateRestPathFromContext(Option<String> restVersion) {
     // baseURL = '/rest-socialdemo/{private}/.../{restVersion}/...';
     String baseURL = SocialClientContext.getPrivateBaseURL();
