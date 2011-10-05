@@ -38,6 +38,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.exoplatform.social.client.api.SocialClientContext;
+import static org.exoplatform.social.client.api.SocialClientContext.Option;
 import org.exoplatform.social.client.api.model.Model;
 import org.exoplatform.social.client.api.net.SocialHttpClient;
 import org.exoplatform.social.client.api.net.SocialHttpClient.POLICY;
@@ -349,6 +350,17 @@ public class SocialHttpClientSupport {
     return "/" + SocialClientContext.getRestContextName() + privateURL +
             "/api/social/" + SocialClientContext.getRestVersion() +
             "/" + SocialClientContext.getPortalContainerName() + "/";
+  }
+  
+  public static String buildPublicRestPathFromContext(Option<String> restVersion) {
+    String baseURL = SocialClientContext.getPublicBaseURL();
+    return SocialClientContext.fromPath(baseURL).build(restVersion.getValue());
+  }
+  
+  public static String buildPrivateRestPathFromContext(Option<String> restVersion) {
+    // baseURL = '/rest-socialdemo/{private}/.../{restVersion}/...';
+    String baseURL = SocialClientContext.getPrivateBaseURL();
+    return SocialClientContext.fromPath(baseURL).build(SocialClientContext.PRIVATE.getValue(), restVersion.getValue());
   }
   
   /**

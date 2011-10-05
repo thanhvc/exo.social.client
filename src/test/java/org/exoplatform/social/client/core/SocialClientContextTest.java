@@ -18,6 +18,7 @@ package org.exoplatform.social.client.core;
 
 import org.exoplatform.social.client.api.SocialClientContext;
 import org.exoplatform.social.client.api.UnsupportedRestVersionException;
+import org.exoplatform.social.client.core.util.SocialHttpClientSupport;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -76,6 +77,82 @@ public class SocialClientContextTest {
     assertThat(SocialClientContext.getPassword(), equalTo("gtn"));
     assertThat("SocialClientContext.isDeveloping() must return true", SocialClientContext.isDeveloping(),
               equalTo(true));
+  }
+  
+  @Test
+  public void shouldGetPrivateBaseURLV1Alpha1() {
+    SocialClientContext.setHost("http://platform35.demo.exoplatform.org");
+    SocialClientContext.setPort(80);
+    SocialClientContext.setPortalContainerName("portal");
+    SocialClientContext.setRestContextName("rest");
+    SocialClientContext.setRestVersion("v1-alpha1");
+    SocialClientContext.setRestVersion("v1-alpha2");
+    SocialClientContext.setUsername("demo");
+    SocialClientContext.setPassword("gtn");
+    SocialClientContext.setIsDeveloping(true);
+    
+    String expected = "/rest/private/api/social/v1-alpha1/portal/";
+    String actual = SocialHttpClientSupport.buildPrivateRestPathFromContext(SocialClientContext.V1_ALPHA1);
+    assertThat(expected, equalTo(actual));
+
+   
+  }
+  
+  @Test
+  public void shouldGetPublicBaseURLV1Alpha1() {
+    SocialClientContext.setHost("http://platform35.demo.exoplatform.org");
+    SocialClientContext.setPort(80);
+    SocialClientContext.setPortalContainerName("portal");
+    SocialClientContext.setRestContextName("rest");
+    SocialClientContext.setRestVersion("v1-alpha1");
+    SocialClientContext.setRestVersion("v1-alpha2");
+    SocialClientContext.setUsername("demo");
+    SocialClientContext.setPassword("gtn");
+    SocialClientContext.setIsDeveloping(true);
+    
+    String expected = "/rest/api/social/v1-alpha1/portal/";
+    String actual = SocialHttpClientSupport.buildPublicRestPathFromContext(SocialClientContext.V1_ALPHA1);
+    assertThat(expected, equalTo(actual));
+
+   
+  }
+  
+  @Test
+  public void shouldGetPrivateBaseURLV1Alpha2() {
+    SocialClientContext.setHost("http://platform35.demo.exoplatform.org");
+    SocialClientContext.setPort(80);
+    SocialClientContext.setPortalContainerName("portal");
+    SocialClientContext.setRestContextName("rest");
+    SocialClientContext.setRestVersion("v1-alpha1");
+    SocialClientContext.setRestVersion("v1-alpha2");
+    SocialClientContext.setUsername("demo");
+    SocialClientContext.setPassword("gtn");
+    SocialClientContext.setIsDeveloping(true);
+    
+    String expected = "/rest/private/api/social/v1-alpha2/portal/";
+    String actual = SocialHttpClientSupport.buildPrivateRestPathFromContext(SocialClientContext.V1_ALPHA2);
+    assertThat(expected, equalTo(actual));
+
+   
+  }
+  
+  @Test
+  public void shouldGetPublicBaseURLV1Alpha2() {
+    SocialClientContext.setHost("http://platform35.demo.exoplatform.org");
+    SocialClientContext.setPort(80);
+    SocialClientContext.setPortalContainerName("portal");
+    SocialClientContext.setRestContextName("rest");
+    SocialClientContext.setRestVersion("v1-alpha1");
+    SocialClientContext.setRestVersion("v1-alpha2");
+    SocialClientContext.setUsername("demo");
+    SocialClientContext.setPassword("gtn");
+    SocialClientContext.setIsDeveloping(true);
+    
+    String expected = "/rest/api/social/v1-alpha2/portal/";
+    String actual = SocialHttpClientSupport.buildPublicRestPathFromContext(SocialClientContext.V1_ALPHA2);
+    assertThat(expected, equalTo(actual));
+
+   
   }
 
 }
