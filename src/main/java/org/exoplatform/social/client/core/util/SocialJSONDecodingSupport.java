@@ -17,6 +17,7 @@
 package org.exoplatform.social.client.core.util;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +27,8 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.exoplatform.social.client.api.model.Model;
+import org.exoplatform.social.client.core.spi.Key;
+import org.exoplatform.social.client.core.spi.Provider;
 import org.json.simple.parser.ContainerFactory;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -37,6 +40,8 @@ import org.json.simple.parser.ParseException;
  * Jun 30, 2011  
  */
 public class SocialJSONDecodingSupport {
+  private static JSONParser parser = new JSONParser();
+  private static  Map<Key<?>, ContainerFactory> factories = new HashMap<Key<?>, ContainerFactory>();
   /**
    * Parse JSON text into java Model object from the input source.
    * and then it's base on the class type.
@@ -65,6 +70,46 @@ public class SocialJSONDecodingSupport {
       }
     };
     return (T) parser.parse(jsonContent, containerFactory);
+  }
+  /**
+   * 
+   * @param <T>
+   * @param provider
+   * @param jsonContent
+   * @return
+   * @throws ParseException
+   * @since v1-alpha3
+   */
+  public static <T extends Model> T parser(final Provider<T> provider, String jsonContent) throws ParseException {
+    ContainerFactory containerFactory = factory(provider);
+    return (T) parser.parse(jsonContent, containerFactory);
+  }
+  
+  /**
+   * Caching the ContainerFactory avoids to initialize the new ContainerFactory.
+   * @param <T>
+   * @param provider
+   * @return
+   */
+  private static <T extends Model> ContainerFactory factory(final Provider<T> provider) {
+    Key<T> key = Key.newInstance(provider.getClazz(), "container");
+    
+    //
+    if (factories.containsKey(key) == false) {
+      ContainerFactory containerFactory = new ContainerFactory() {
+        public List<T> creatArrayContainer() {
+          return new LinkedList<T>();
+        }
+
+        public T createObjectContainer() {
+          return provider.get();
+        }
+      };
+      
+      factories.put(Key.newInstance(provider.getClazz(), "container"), containerFactory);
+    }
+    
+    return factories.get(key);
   }
   
   /**
