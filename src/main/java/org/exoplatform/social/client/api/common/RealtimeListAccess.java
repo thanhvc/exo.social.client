@@ -97,4 +97,72 @@ public interface RealtimeListAccess<E> extends ListAccess<E> {
    */
   List<E> loadOlderAsList(E baseElement, int limit) throws SocialClientLibException;
 
+  /**
+   * Checks if there is newer elements than the provided element based on postedTime.
+   *
+   * @param sinceTime the postedTime
+   * @return true if there is any newer element, otherwise, false
+   */
+  boolean hasNewer(Long sinceTime) throws SocialClientLibException;
+
+  /**
+   * Gets the number of newer elements based on the postedTime.
+   *
+   * @param sinceTime the postedTime
+   * @return number of newer elements if any
+   */
+  int getNumberOfNewer(Long sinceTime);
+
+
+  /**
+   * Loads newer elements based on the provided element.
+   *
+   * @param sinceTime the postedTime
+   * @param limit number of newer elements to load
+   * @return an array of newer elements
+   */
+  E[] loadNewer(Long sinceTime, int limit) throws SocialClientLibException;
+
+  /**
+   * Loads newer elements based on the provided element.
+   *
+   * @param sinceTime postedTime
+   * @param limit number of newer elements to load
+   * @return a list of newer elements
+   */
+  List<E> loadNewerAsList(Long sinceTime, int limit) throws SocialClientLibException;
+
+  /**
+   * Checks if there is older elements than the provided element based on postedTime.
+   *
+   * @param maxTime the based element
+   * @return true if there is any older element, otherwise, false
+   */
+  boolean hasOlder(Long maxTime) throws SocialClientLibException;
+
+  /**
+   * Gets the number of older elements based on the postedTime.
+   *
+   * @param maxTime the provided element
+   * @return number of older elements if any
+   */
+  int getNumberOfOlder(Long maxTime);
+
+  /**
+   * Loads older elements based on the provided postedTime.
+   *
+   * @param maxTime the based element
+   * @param limit       number of older elements to load
+   * @return an array of older elements
+   */
+  E[] loadOlder(Long maxTime, int limit) throws SocialClientLibException;
+
+  /**
+   * Loads older elements based on the provided postedTime.
+   *
+   * @param maxTime the based element
+   * @param limit       number of older elements to load
+   * @return a list of older elements
+   */
+  List<E> loadOlderAsList(Long maxTime, int limit) throws SocialClientLibException;
 }

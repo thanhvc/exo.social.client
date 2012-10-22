@@ -156,6 +156,8 @@ public class ActivityServiceV1Alpha3IT extends AbstractClientTestV1Alpha3 {
     assertThat("resultActivity's title should be: \"Hello World\"", "Hello World", equalTo(resultActivity.getTitle()));
 
     assertThat("resultActivity's identityId should be:  restIdentity.getId()", restIdentity.getId(), equalTo(resultActivity.getIdentityId()));
+    
+    tearDownActivityList.add(resultActivity);
   }
 
   @Test

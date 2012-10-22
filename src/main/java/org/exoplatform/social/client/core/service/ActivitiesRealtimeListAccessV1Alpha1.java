@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.exoplatform.social.client.api.SocialClientLibException;
+import org.exoplatform.social.client.api.UnsupportedRestVersionException;
 import org.exoplatform.social.client.api.common.RealtimeListAccess;
 import org.exoplatform.social.client.api.model.RestActivity;
 import org.exoplatform.social.client.api.model.RestIdentity;
@@ -326,5 +327,37 @@ public class ActivitiesRealtimeListAccessV1Alpha1 implements RealtimeListAccess<
    */
   private <T> T[] convertListToArray(List<T> list, Class<T> type) {
     return list.toArray((T[])java.lang.reflect.Array.newInstance(type, list.size()));
+  }
+
+  public boolean hasNewer(Long sinceTime) throws SocialClientLibException {
+    throw new UnsupportedRestVersionException("Version expired, current version : V1Alpha3");
+  }
+
+  public int getNumberOfNewer(Long sinceTime) {
+    throw new UnsupportedRestVersionException("Version expired, current version : V1Alpha3");
+  }
+
+  public RestActivity[] loadNewer(Long sinceTime, int limit) throws SocialClientLibException {
+    throw new UnsupportedRestVersionException("Version expired, current version : V1Alpha3");
+  }
+
+  public List<RestActivity> loadNewerAsList(Long sinceTime, int limit) throws SocialClientLibException {
+    throw new UnsupportedRestVersionException("Version expired, current version : V1Alpha3");
+  }
+
+  public boolean hasOlder(Long maxTime) throws SocialClientLibException {
+    throw new UnsupportedRestVersionException("Version expired, current version : V1Alpha3");
+  }
+
+  public int getNumberOfOlder(Long maxTime) {
+    throw new UnsupportedRestVersionException("Version expired, current version : V1Alpha3");
+  }
+
+  public RestActivity[] loadOlder(Long maxTime, int limit) throws SocialClientLibException {
+    throw new UnsupportedRestVersionException("Version expired, current version : V1Alpha3");
+  }
+
+  public List<RestActivity> loadOlderAsList(Long maxTime, int limit) throws SocialClientLibException {
+    throw new UnsupportedRestVersionException("Version expired, current version : V1Alpha3");
   }
 }

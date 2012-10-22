@@ -41,6 +41,10 @@ public interface QueryParams {
   public final static QueryParamOption SINCE_ID_PARAM = new QueryParamOption("since_id", null) {};
   
   public final static QueryParamOption MAX_ID_PARAM = new QueryParamOption("max_id", null) {};
+  
+  public final static QueryParamOption SINCE_TIME_PARAM = new QueryParamOption("since_time", null) {};
+  
+  public final static QueryParamOption MAX_TIME_PARAM = new QueryParamOption("max_time", null) {};
 
   /**
    * Append the query parameter for build URL Request.

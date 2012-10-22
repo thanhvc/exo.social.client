@@ -335,4 +335,113 @@ public class ActivitiesRealtimeListAccessV1Alpha3 implements RealtimeListAccess<
   private <T> T[] convertListToArray(List<T> list, Class<T> type) {
     return list.toArray((T[])java.lang.reflect.Array.newInstance(type, list.size()));
   }
+
+  @Override
+  public boolean hasNewer(Long sinceTime) throws SocialClientLibException {
+    return this.loadNewerAsList(sinceTime, 1).size() > 0;
+  }
+
+  @Override
+  public int getNumberOfNewer(Long sinceTime) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public RestActivity[] loadNewer(Long sinceTime, int limit) throws SocialClientLibException {
+    return this.convertListToArray(this.loadNewerAsList(sinceTime, limit), RestActivity.class);
+  }
+
+  @Override
+  public List<RestActivity> loadNewerAsList(Long sinceTime, int limit) throws SocialClientLibException {
+    String requestURL = null;
+    HttpResponse response = null;
+    queryParams.append(QueryParams.LIMIT_PARAM.setValue(limit));
+    queryParams.append(QueryParams.SINCE_TIME_PARAM.setValue(sinceTime));
+    switch (activityType) {
+      case ACTIVITY_STREAM: {
+        requestURL = BASE_URL + "activity_stream/" + this.ownerIdentity.getId() + "ByTimestamp.json?"+queryParams.buildQuery();
+        break;
+      }
+      
+      case ACTIVITY_FEED: {
+        requestURL = BASE_URL + "activity_stream/feedByTimestamp.json?" + queryParams.buildQuery();
+        break;
+      }
+      
+      case CONNECTIONS_ACTIVITIES: {
+        requestURL = BASE_URL + "activity_stream/connectionsByTimestamp.json?" + queryParams.buildQuery();
+        break;
+      }
+      
+      case USER_SPACE_ACTIVITIES: {
+        requestURL = BASE_URL + "activity_stream/spacesByTimestamp.json?" + queryParams.buildQuery();
+        break;
+      }
+    }
+    queryParams.remove(QueryParams.LIMIT_PARAM);
+    queryParams.remove(QueryParams.SINCE_TIME_PARAM);
+
+    try {
+      response = executeGet(requestURL, POLICY.BASIC_AUTH);
+      handleError(response);
+    } catch (SocialHttpClientException e) {
+      throw new ServiceException(e.getMessage(),e);
+    }
+    return this.getListActivitiesFromResponse(response);
+  }
+
+  @Override
+  public boolean hasOlder(Long maxTime) throws SocialClientLibException {
+    return this.loadOlderAsList(maxTime, 1).size() > 0;
+  }
+
+  @Override
+  public int getNumberOfOlder(Long maxTime) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public RestActivity[] loadOlder(Long maxTime, int limit) throws SocialClientLibException {
+    return this.convertListToArray(this.loadOlderAsList(maxTime, limit), RestActivity.class);
+  }
+
+  @Override
+  public List<RestActivity> loadOlderAsList(Long maxTime, int limit) throws SocialClientLibException {
+    String requestURL = null;
+    HttpResponse response = null;
+    queryParams.append(QueryParams.LIMIT_PARAM.setValue(limit));
+    queryParams.append(QueryParams.MAX_TIME_PARAM.setValue(maxTime));
+    switch (activityType) {
+      case ACTIVITY_STREAM: {
+        requestURL = BASE_URL + "activity_stream/" + this.ownerIdentity.getId() + "ByTimestamp.json?"+queryParams.buildQuery();
+        break;
+      }
+      
+      case ACTIVITY_FEED: {
+        requestURL = BASE_URL + "activity_stream/feedByTimestamp.json?" + queryParams.buildQuery();
+        break;
+      }
+      
+      case CONNECTIONS_ACTIVITIES: {
+        requestURL = BASE_URL + "activity_stream/connectionsByTimestamp.json?" + queryParams.buildQuery();
+        break;
+      }
+      
+      case USER_SPACE_ACTIVITIES: {
+        requestURL = BASE_URL + "activity_stream/spacesByTimestamp.json?" + queryParams.buildQuery();
+        break;
+      }
+    }
+    queryParams.remove(QueryParams.LIMIT_PARAM);
+    queryParams.remove(QueryParams.MAX_TIME_PARAM);
+    try {
+      response = executeGet(requestURL, POLICY.BASIC_AUTH);
+      handleError(response);
+    } catch (SocialHttpClientException e) {
+      throw new ServiceException(e.getMessage(),e);
+    }
+    return this.getListActivitiesFromResponse(response);
+  }
 }
