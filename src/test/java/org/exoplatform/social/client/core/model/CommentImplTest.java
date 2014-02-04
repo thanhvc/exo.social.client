@@ -16,15 +16,16 @@
  */
 package org.exoplatform.social.client.core.model;
 
-import org.exoplatform.social.client.api.model.Comment;
-import org.junit.Test;
+import org.exoplatform.social.client.api.model.RestActivity;
+import org.exoplatform.social.client.api.model.RestComment;
+import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertThat;
 
 /**
- * Unit Test for {@link CommentImpl}.
+ * Unit Test for {@link RestComment}.
  *
  * @author <a href="http://hoatle.net">hoatle (hoatlevan at gmail dot com)</a>
  * @since  May 26, 2011
@@ -35,16 +36,23 @@ public class CommentImplTest {
   public void shouldCreateInstanceAndGetFields() {
     final String id = "123sdge234";
     final String identityId = "136492yf9wfhw";
-    final String activityId = "12345689abcdefgh";
     final long postedTime = System.currentTimeMillis();
     final String createdAt = "Tue Jun 21 15:09:19 +0700 2011";
-    Comment comment = new CommentImpl(id, identityId, activityId, postedTime, createdAt);
-    assertThat("comment must not be null", comment, notNullValue());
-    assertThat("comment.getId() must return: " + id, comment.getId(), equalTo(id));
-    assertThat("comment.getIdentityId() must return: " + identityId, comment.getIdentityId(), equalTo(identityId));
-    assertThat("comment.getActivityId() must return: " + activityId, comment.getActivityId(), equalTo(activityId));
-    assertThat("comment.getPostedTime() must return: " + postedTime, comment.getPostedTime(), equalTo(postedTime));
-    assertThat("comment.getCreatedAt() must return: " + createdAt, comment.getCreatedAt(), equalTo(createdAt));
+    RestComment restComment = new RestComment(id, identityId, postedTime, createdAt);
+    
+    RestActivity restActivity = new RestActivity();
+    restActivity.setId("abc92838abdfad28383");
+    restActivity.setTitle("activity to test");
+    restActivity.setBody("body activity");
+    
+    restComment.setActivity(restActivity);
+    
+    assertThat("restComment must not be null", restComment, notNullValue());
+    assertThat("restComment.getId() must return: " + id, restComment.getId(), equalTo(id));
+    assertThat("restComment.getIdentityId() must return: " + identityId, restComment.getIdentityId(), equalTo(identityId));
+    assertThat("restComment.getActivityId() must return: " + restActivity.getId(), restComment.getActivityId(), equalTo(restActivity.getId()));
+    assertThat("restComment.getPostedTime() must return: " + postedTime, restComment.getPostedTime(), equalTo(postedTime));
+    assertThat("restComment.getCreatedAt() must return: " + createdAt, restComment.getCreatedAt(), equalTo(createdAt));
   }
 
   @Test

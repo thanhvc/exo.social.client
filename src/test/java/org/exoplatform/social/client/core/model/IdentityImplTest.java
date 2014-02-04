@@ -16,15 +16,15 @@
  */
 package org.exoplatform.social.client.core.model;
 
-import org.exoplatform.social.client.api.model.Identity;
-import org.exoplatform.social.client.api.model.Profile;
-import org.junit.Test;
+import org.exoplatform.social.client.api.model.RestIdentity;
+import org.exoplatform.social.client.api.model.RestProfile;
+import org.testng.annotations.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
- * Unit Test for {@link IdentityImpl}
+ * Unit Test for {@link RestIdentity}
  *
  * @author <a href="http://hoatle.net">hoatle (hoatlevan at gmail dot com)</a>
  * @since May 25, 2011
@@ -33,12 +33,14 @@ public class IdentityImplTest {
 
   @Test
   public void shouldCreteInstanceAndGetFields() {
-    Profile profile = new ProfileImpl();
-    Identity identity = new IdentityImpl("123", "organization", "demo", profile);
-    assertThat("identity.getId() must return 123", identity.getId(), equalTo("123"));
-    assertThat("identity.getProviderId() must return organization", identity.getProviderId(), equalTo("organization"));
-    assertThat("identity.getRemoteId() must return demo", identity.getRemoteId(), equalTo("demo"));
-    //gets dedault value
-    assertThat("identity.getProfile() must be null", identity.getProfile(), equalTo((Profile)new ProfileImpl()));
+    RestProfile restProfile = new RestProfile();
+    RestIdentity restIdentity = new RestIdentity("123", "organization", "demo", restProfile);
+    assertThat("restIdentity.getId() must return 123", restIdentity.getId(), equalTo("123"));
+    assertThat("restIdentity.getProviderId() must return organization",
+               restIdentity.getProviderId(), equalTo("organization"));
+    assertThat("restIdentity.getRemoteId() must return demo", restIdentity.getRemoteId(), equalTo("demo"));
+    //gets default value
+    assertThat("restIdentity.getProfile() must be null",
+                restIdentity.getProfile(), equalTo((RestProfile)new RestProfile()));
   }
 }

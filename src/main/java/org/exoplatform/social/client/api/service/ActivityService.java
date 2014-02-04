@@ -16,11 +16,14 @@
  */
 package org.exoplatform.social.client.api.service;
 
+import org.exoplatform.social.client.api.SocialClientLibException;
 import org.exoplatform.social.client.api.auth.AccessDeniedException;
+import org.exoplatform.social.client.api.auth.NotFoundException;
 import org.exoplatform.social.client.api.common.RealtimeListAccess;
-import org.exoplatform.social.client.api.model.Comment;
-import org.exoplatform.social.client.api.model.Identity;
-import org.exoplatform.social.client.api.model.Like;
+import org.exoplatform.social.client.api.model.RestActivity;
+import org.exoplatform.social.client.api.model.RestComment;
+import org.exoplatform.social.client.api.model.RestIdentity;
+import org.exoplatform.social.client.api.model.RestLike;
 
 /**
  * Activity Service.
@@ -35,68 +38,128 @@ public interface ActivityService<Activity> extends Service<Activity> {
    *
    * For example:
    * <pre>
-   *    Identity demoIdentity = identityService.get("123456789abcdef");
-   *    RealtimeListAccess<Activity> activityListAccess = activityService.getActivityStream(demoIdentity);
+   *    RestIdentity demoIdentity = identityService.get("123456789abcdef");
+   *    RealtimeListAccess<RestActivity> activityListAccess = activityService.getActivityStream(demoIdentity);
    * </pre>
    *
    * or:
    * <pre>
-   *   Identity spaceIdentity = new IdentityImpl();
+   *   RestIdentity spaceIdentity = new RestIdentityImpl();
    *   spaceIdentity.setProviderId("space");
    *   spaceIdentity.setRemoteId("hello_world");
-   *   RealtimeListAccess<Activity> activityListAccess = activityService.getActivitySream(spaceIdentity);
+   *   RealtimeListAccess<RestActivity> activityListAccess = activityService.getActivitySream(spaceIdentity);
    * </pre>
    *
-   * @param  ownerStreamIdentity the owner stream identity, could be a user or space identity.
+   * @param  ownerStreamRestIdentity the owner stream identity, could be a user or space identity.
    * @return the real time list access
    * @throws AccessDeniedException
    * @throws ServiceException
    */
-  RealtimeListAccess<Activity> getActivityStream(Identity ownerStreamIdentity) throws AccessDeniedException,
-                                                                                      ServiceException;
+
+
+  RealtimeListAccess<Activity> getActivityStream(RestIdentity ownerStreamRestIdentity) throws SocialClientLibException;
+  /**
+   * Get Activity Stream with input parameter (limit, number of comment, number of like);
+   * @param restIdentity
+   * @param queryParams
+   * @return
+   * @throws AccessDeniedException
+   * @throws ServiceException
+   * @since  1.0.0-alpha2
+   */
+  RealtimeListAccess<RestActivity> getActivityStream(RestIdentity restIdentity, QueryParams queryParams)
+                                                                                    throws SocialClientLibException;
+  /**
+   * Create new Activity from current Identity to targetIdentity
+   * @param newActivity Activity
+   * @param queryParams the query params
+   * @return
+   * @throws AccessDeniedException
+   * @throws ServiceException
+   * @since  1.0.0-alpha2
+   */
+  RestActivity create(RestActivity newActivity, QueryParams queryParams) throws SocialClientLibException;
+
 
   /**
    * Gets all activities from spaces which a user is a member of that space aggregated into one stream.
    *
-   * @param userIdentity the associated user identity
+   * @param userRestIdentity the associated user identity
    * @return the real time list access
    * @throws AccessDeniedException
    * @throws ServiceException
    */
-  RealtimeListAccess<Activity> getSpacesActivityStream(Identity userIdentity) throws AccessDeniedException,
-                                                                                     ServiceException;
+  RealtimeListAccess<Activity> getSpacesActivityStream(RestIdentity userRestIdentity) throws SocialClientLibException;
+
+
+  /**
+   * Gets all activities from spaces which a user is a member of that space aggregated into one stream with input parameter
+   * (limit, number of comment, number of like);
+   * @param restIdentity
+   * @param queryParams
+   * @return
+   * @throws AccessDeniedException
+   * @throws ServiceException
+   * @since  1.0.0-alpha2
+   */
+  RealtimeListAccess<RestActivity> getSpacesActivityStream(RestIdentity restIdentity, QueryParams queryParams)
+                                                                                    throws SocialClientLibException;
 
   /**
    * Gets all connections' activities aggregated into one stream.
    *
-   * @param userIdentity the associated user identity
+   * @param userRestIdentity the associated user identity
    * @return the real time list access
    * @throws AccessDeniedException
    * @throws ServiceException
    */
-  RealtimeListAccess<Activity> getConnectionsActivityStream(Identity userIdentity) throws AccessDeniedException,
-                                                                                          ServiceException;
+  RealtimeListAccess<Activity> getConnectionsActivityStream(RestIdentity userRestIdentity) throws SocialClientLibException;
+
+  /**
+   * Gets all connections' activities aggregated into one stream with input parameter (limit, number of comment, number of like);
+   * @param restIdentity
+   * @param queryParams
+   * @return
+   * @throws AccessDeniedException
+   * @throws ServiceException
+   * @since  1.0.0-alpha2
+   */
+  RealtimeListAccess<RestActivity> getConnectionsActivityStream(RestIdentity restIdentity, QueryParams queryParams)
+                                                                                    throws SocialClientLibException;
 
   /**
    * Gets all activities from a stream owner, his connections and spaces aggregated into one stream.
    *
-   * @param userIdentity the associated user identity
+   * @param userRestIdentity the associated user identity
    * @return the realtime list access
    * @throws AccessDeniedException
    * @throws ServiceException
    */
-  RealtimeListAccess<Activity> getFeedActivityStream(Identity userIdentity) throws AccessDeniedException,
-                                                                                   ServiceException;
+  RealtimeListAccess<Activity> getFeedActivityStream(RestIdentity userRestIdentity) throws SocialClientLibException;
+
+  /**
+   * Gets all activities from a stream owner, his connections and spaces aggregated into one stream with input parameter
+   * (limit, number of comment, number of like);
+   * @param restIdentity
+   * @param queryParams
+   * @return
+   * @throws AccessDeniedException
+   * @throws ServiceException
+   * @since  1.0.0-alpha2
+   */
+  RealtimeListAccess<RestActivity> getFeedActivityStream(RestIdentity restIdentity, QueryParams queryParams)
+                                                                                    throws SocialClientLibException;
+
   /**
    * Creates a new comment to this activity.
    *
    * @param existingActivity the existing activity
-   * @param newComment       the new created comment
+   * @param newRestComment       the new created comment
    * @return the created comment
    * @throws AccessDeniedException
    * @throws ServiceException
    */
-  Comment createComment(Activity existingActivity, Comment newComment) throws AccessDeniedException, ServiceException;
+  RestComment createComment(Activity existingActivity, RestComment newRestComment) throws SocialClientLibException;
 
   /**
    * Gets an existing comment by its id.
@@ -106,37 +169,47 @@ public interface ActivityService<Activity> extends Service<Activity> {
    * @throws AccessDeniedException
    * @throws ServiceException
    */
-  Comment getComment(String commentId) throws AccessDeniedException, ServiceException;
+  RestComment getComment(String commentId) throws SocialClientLibException;
 
   /**
    * Deletes an existing comment.
    *
-   * @param existingComment the existing comment
+   * @param existingRestComment the existing comment
    * @return the deleted comment
    * @throws AccessDeniedException
    * @throws ServiceException
    */
-  Comment deleteComment(Comment existingComment) throws AccessDeniedException, ServiceException;
+  RestComment deleteComment(RestComment existingRestComment) throws SocialClientLibException;
 
 
   /**
    * The authenticate identity likes an existing activity.
    *
    * @param existingActivity the existing activity
-   * @return the created {@link Like} instance
+   * @return the created {@link org.exoplatform.social.client.api.model.RestLike} instance
    * @throws AccessDeniedException
    * @throws ServiceException
    */
-  Like like(Activity existingActivity) throws AccessDeniedException, ServiceException;
+  RestLike like(Activity existingActivity) throws SocialClientLibException;
 
   /**
    * The authenticated identity unlikes an existing activity.
    *
    * @param existingActivity the existing activity
-   * @return the deleted {@link Like} instance.
+   * @return the deleted {@link org.exoplatform.social.client.api.model.RestLike} instance.
    * @throws AccessDeniedException
    * @throws ServiceException
    */
-  Like unlike(Activity existingActivity) throws AccessDeniedException, ServiceException;
+  RestLike unlike(Activity existingActivity) throws SocialClientLibException;
 
+  /**
+   * Gets an existing instance by its activityId and limit the number of comment/like by by input parameter .
+   * @param activityId the activityId
+   * @param queryParams the query params
+   * @return an existing instance
+   * @throws AccessDeniedException
+   * @throws ServiceException
+   * @since v1-alpha2
+   */
+  Activity get(String activityId, QueryParams queryParams) throws SocialClientLibException;
 }

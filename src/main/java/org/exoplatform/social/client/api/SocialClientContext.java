@@ -16,6 +16,9 @@
  */
 package org.exoplatform.social.client.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 
@@ -27,6 +30,44 @@ import org.apache.http.HttpResponse;
  * @since May 19, 2011
  */
 public class SocialClientContext {
+
+  /**
+   * The enum for supported Social Rest APIs versions.
+   */
+  public static enum SupportedVersion {
+    V1_ALPHA3("v1-alpha3"),
+    V1_ALPHA2("v1-alpha2"),
+    V1_ALPHA1("v1-alpha1");
+    /**
+     * The string field representing string version
+     */
+    private final String version;
+
+    /**
+     * Create a SupportedVersion instance based on version string
+     *
+     * @param version the version string
+     */
+    private SupportedVersion(String version) {
+      this.version = version;
+    }
+    @Override
+    public String toString() {
+      return version;
+    }
+  }
+
+  public static List<String> supportedVersionList;
+
+  static {
+    supportedVersionList = new ArrayList<String>();
+    /**
+     * the latest must be added first, the older is added later
+     */
+    supportedVersionList.add(SupportedVersion.V1_ALPHA3.toString());
+    supportedVersionList.add(SupportedVersion.V1_ALPHA2.toString());
+    supportedVersionList.add(SupportedVersion.V1_ALPHA1.toString());
+  }
 
   /**
    * Gets host of the portal container to access services.
@@ -116,7 +157,10 @@ public class SocialClientContext {
    *
    * @param newRestVersion the eXo Social Rest version
    */
-  public static void setRestVersion(String newRestVersion) {
+  public static void setRestVersion(String newRestVersion) throws UnsupportedRestVersionException {
+    if (!supportedVersionList.contains(newRestVersion)) {
+      throw new UnsupportedRestVersionException(newRestVersion + " is not supported.");
+    }
     restVersion = newRestVersion;
   }
 
@@ -156,7 +200,7 @@ public class SocialClientContext {
     password = newPassword;
   }
 
-  
+
 
   /**
    * Gets protocol of the portal container to access services.
@@ -182,7 +226,7 @@ public class SocialClientContext {
   public Context getCurrentContext() {
     return currentContext;
   }
-  
+
 
   /**
    * Checks to know if this lib is running on development mode to log more info.
@@ -216,11 +260,14 @@ public class SocialClientContext {
   private static String protocol = "http";
   private static String portalContainerName;
   private static String restContextName;
-  private static String restVersion = "v1-alpha1";
+  /**
+   * Default is the latest version
+   */
+  private static String restVersion = supportedVersionList.get(0);
   private static String username;
   private static String password;
   private static boolean isDeveloping = false;
-  
+
   private Context currentContext;
 
 

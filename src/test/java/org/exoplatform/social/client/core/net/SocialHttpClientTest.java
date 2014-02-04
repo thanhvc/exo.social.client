@@ -17,7 +17,9 @@
 package org.exoplatform.social.client.core.net;
 
 import org.exoplatform.social.client.api.net.SocialHttpClient;
-import org.junit.Test;
+import org.testng.annotations.Test;
+
+import junit.framework.TestCase;
 
 /**
  * Created by The eXo Platform SAS
@@ -25,17 +27,15 @@ import org.junit.Test;
  *          exo@exoplatform.com
  * Jun 29, 2011  
  */
-public class SocialHttpClientTest extends AbstractClientTest {
+public class SocialHttpClientTest extends TestCase {
 
   private SocialHttpClient socialHttpClient;
 
   public void setUp() {
-    super.setUp();
     socialHttpClient = SocialHttpClientImpl.newInstance();
   }
 
   public void tearDown() {
-    super.tearDown();
     socialHttpClient = null;
   }
 

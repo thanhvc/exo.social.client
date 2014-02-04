@@ -6,5 +6,5 @@ target
 *.classpath
 .settings
 .DS_Store
-key.txt
-oauthkey.pem
+.idea
+test-output
